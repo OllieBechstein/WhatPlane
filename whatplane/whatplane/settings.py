@@ -41,11 +41,15 @@ INSTALLED_APPS = [
     'planemap',
     'api',
 
+    'corsheaders',
     'rest_framework',
 ]
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+
+    'corsheaders.middleware.CorsMiddleware',
+
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -82,8 +86,12 @@ WSGI_APPLICATION = 'whatplane.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'postgres',
+        'USER': 'oliverbr',
+        'PASSWORD': '^51SI!vS1w3HIR',
+        'HOST': 'whatplane-db.c7uy28yyopwb.eu-north-1.rds.amazonaws.com',
+        'PORT': '5432'
     }
 }
 
@@ -128,3 +136,6 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+
+CORS_ALLOW_ALL_ORIGINS = True
