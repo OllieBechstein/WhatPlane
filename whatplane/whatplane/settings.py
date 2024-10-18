@@ -91,13 +91,15 @@ WSGI_APPLICATION = 'whatplane.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'postgres',
-        'USER': 'oliverbr',
-        'PASSWORD': '^51SI!vS1w3HIR',
-        'HOST': 'whatplane-db.c7uy28yyopwb.eu-north-1.rds.amazonaws.com',
-        'PORT': '5432'
+        'NAME': os.getenv('DATABASE_NAME'),         # Database name
+        'USER': os.getenv('DATABASE_USER'),         # Username
+        'PASSWORD': os.getenv('DATABASE_PASSWORD'), # Password
+        'HOST': 'localhost',         # Hostname
+        'PORT': '5432', # Default port
     }
 }
+
+
 
 
 # Password validation
