@@ -1,7 +1,10 @@
-from rest_framework.decorators import api_view
+from rest_framework.decorators import api_view, permission_classes, authentication_classes
+from rest_framework.authentication import TokenAuthentication
 from rest_framework.response import Response
 from .serializers import PlaneSerializer
-from .models import Plane
+from .models import Plane, UserProfile
+from rest_framework.permissions import IsAuthenticated
+from rest_framework import status
 
 @api_view(['GET'])
 def getRoutes(request):
@@ -46,14 +49,35 @@ def getPlane(request, pk):
     return Response(serializer.data)
 
 @api_view(['POST'])
-def createPlane(request):
+@authentication_classes([TokenAuthentication])
+@permission_classes([IsAuthenticated])
+def capturePlane(request):
+
+    user_profile = request.user.userprofile
+    
     data = request.data
-    plane = Plane.objects.create(
-        type = data['type'],
-        reg = data['reg']
+    type = data['type']
+    reg = data['reg']
+
+    if user_profile.planes.count() >=5:
+        return Response({"detail": "You can only own 5 planes."}, status=status.HTTP_400_BAD_REQUEST)
+
+    plane, created = Plane.objects.get_or_create(
+        reg = reg,
+        type = type
     )
+
+    if created or plane not in user_profile.planes.all():
+        user_profile.planes.add(plane)
+        message = f"Captured the plane: {type} with registration {reg}"
+        #status_code = status.HTTP_201_CREATED if created else status.HTTP_200_OK
+    else:
+        message = "Plane already captured."
+        #status_code = status.HTTP_200_OK
+
+
     serializer = PlaneSerializer(plane, many=False)
-    return Response(serializer.data)
+    return Response({"message": message, "plane": serializer.data})
 
 @api_view(['DELETE'])
 def deletePlane(request, pk):

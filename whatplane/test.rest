@@ -1,19 +1,27 @@
-POST http://127.0.0.1:8000/login
+POST https://shark-app-m2z8h.ondigitalocean.app/login
 Content-Type: application/json
 
-{"username": "Ollie", "password": "ilovesenka"}
+{"username": "Ollie1234", "password": "ilovesenka"}
 
 ###
 
 POST http://127.0.0.1:8000/signup
 Content-Type: application/json
 
-{"username": "Ollie1", "password": "ilovesenka", "email": "olliebechstein@gmail.com"}
+{"username": "Olliea3", "password": "ilovesenka", "email": "olliebechstein@gmail.com"}
 
 ###
 
-GET http://127.0.0.1:8000/test_token
+GET https://shark-app-m2z8h.ondigitalocean.app/test_token
 Content-Type: application/json
-Authorization: Token 9568f2b3eb77ec75865591a9c68862deafcd192b
+Authorization: Token 05c3f7aea9b5165a6951de00221bab00029199cc
 
 {}
+
+###
+
+POST http://127.0.0.1:8000/planes/
+Content-Type: application/json
+Authorization: Token 05c3f7aea9b5165a6951de00221bab00029199cc
+
+{"type": "A320", "reg": "G-TEST"}

@@ -11,6 +11,8 @@ from rest_framework.decorators import authentication_classes, permission_classes
 from rest_framework.authentication import SessionAuthentication, TokenAuthentication
 from rest_framework.permissions import IsAuthenticated
 
+from api.models import UserProfile
+
 @api_view(['POST'])
 def login(request):
     user = get_object_or_404(User, username=request.data['username'])
@@ -24,10 +26,18 @@ def login(request):
 def signup(request):
     serializer = UserSerializer(data = request.data)
     if serializer.is_valid():
-        serializer.save()
-        user = User.objects.get(username=request.data['username'])
-        user.set_password(request.data['password'])
-        user.save()
+        user = serializer.save()  
+
+        # Set the password securely
+        user.set_password(request.data['password'])  
+        user.save()  # Save the user again to update the password
+
+
+        #Here is where I am creating the userprofile for the User
+        UserProfile.objects.create(user=user)
+        
+        print(f"UserProfile created for: {user.username}")
+
         token = Token.objects.create(user=user)
         return Response({"token": token.key, "user": serializer.data})
     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
