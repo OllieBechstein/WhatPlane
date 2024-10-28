@@ -22,6 +22,22 @@ Authorization: Token da70c2e64bc5ac04657aa9e784830fce49aad61b
 
 POST http://127.0.0.1:8000/api/planes/capture/
 Content-Type: application/json
-Authorization: Token 9568f2b3eb77ec75865591a9c68862deafcd192b
+Authorization: Token 42e2779c469a7abb1904b7b39f011b70092196ea
 
 {"lat": "51.384880", "lon": "-2.361970"}
+
+
+###
+
+
+GET http://127.0.0.1:8000/api/planes/
+Content-Type: application/json
+Authorization: Token 42e2779c469a7abb1904b7b39f011b70092196ea
+
+###
+
+DELETE http://127.0.0.1:8000/api/planes/delete/
+Content-Type: application/json
+Authorization: Token 42e2779c469a7abb1904b7b39f011b70092196ea
+
+{"id": "1"}

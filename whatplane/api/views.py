@@ -1,3 +1,4 @@
+from django.shortcuts import get_object_or_404
 from rest_framework.decorators import api_view, permission_classes, authentication_classes
 from rest_framework.authentication import TokenAuthentication
 from rest_framework.response import Response
@@ -38,12 +39,17 @@ def getRoutes(request):
     return Response(routes)
 
 @api_view(['GET'])
+@authentication_classes([TokenAuthentication])
+@permission_classes([IsAuthenticated])
 def getPlanes(request):
-    planes = Plane.objects.all()
+    user_profile = request.user.userprofile
+    planes = user_profile.planes.all()
     serializer = PlaneSerializer(planes, many=True)
     return Response(serializer.data)
 
 @api_view(['GET'])
+@authentication_classes([TokenAuthentication])
+@permission_classes([IsAuthenticated])
 def getPlane(request, pk):
     plane = Plane.objects.get(id=pk)
     serializer = PlaneSerializer(plane, many=False)
@@ -81,7 +87,6 @@ def capturePlane(request):
     type = plane_info.get("t")
     reg = plane_info.get("r")
 
-    print(plane_info)
 
     if user_profile.planes.count() >=5:
         return Response({"detail": "You can only own 5 planes."}, status=status.HTTP_400_BAD_REQUEST)
@@ -103,9 +108,15 @@ def capturePlane(request):
     serializer = PlaneSerializer(plane, many=False)
     return Response({"message": message, "plane": serializer.data})
 
-@api_view(['DELETE'])
-def deletePlane(request, pk):
 
-    plane = Plane.objects.get(id=pk)
-    plane.delete()
+@api_view(['DELETE'])
+@authentication_classes([TokenAuthentication])
+@permission_classes([IsAuthenticated])
+def deletePlane(request):
+
+    user_profile = request.user.userprofile
+    data = request.data
+    plane_id = data['id']
+    plane_to_remove = get_object_or_404(Plane, id=plane_id)
+    user_profile.planes.remove(plane_to_remove)
     return Response('Plane Removed')
