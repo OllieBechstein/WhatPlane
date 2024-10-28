@@ -5,16 +5,16 @@ Content-Type: application/json
 
 ###
 
-POST http://127.0.0.1:8000/signup
+POST https://shark-app-m2z8h.ondigitalocean.app/signup
 Content-Type: application/json
 
-{"username": "Millie", "password": "ilovesenka", "email": "olliebechstein@gmail.com"}
+{"username": "Test", "password": "ilovesenka", "email": "olliebechstein@gmail.com"}
 
 ###
 
 GET http://127.0.0.1:8000/test_token
 Content-Type: application/json
-Authorization: Token da70c2e64bc5ac04657aa9e784830fce49aad61b
+Authorization: Token 42e2779c469a7abb1904b7b39f011b70092196ea
 
 {}
 
