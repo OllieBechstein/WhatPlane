@@ -2,7 +2,7 @@ from django.shortcuts import get_object_or_404
 from rest_framework.decorators import api_view, permission_classes, authentication_classes
 from rest_framework.authentication import TokenAuthentication
 from rest_framework.response import Response
-from .serializers import PlaneSerializer
+from .serializers import PlaneSerializer, UserProfileSerializer
 from .models import Plane, UserProfile
 from rest_framework.permissions import IsAuthenticated
 from rest_framework import status
@@ -120,3 +120,10 @@ def deletePlane(request):
     plane_to_remove = get_object_or_404(Plane, id=plane_id)
     user_profile.planes.remove(plane_to_remove)
     return Response('Plane Removed')
+
+
+@api_view(['GET'])
+def getScores(request):
+    top_users = UserProfile.objects.order_by('-score')[:10]  # Get top 10 users sorted by score
+    serializer = UserProfileSerializer(top_users, many=True)
+    return Response(serializer.data, status=status.HTTP_200_OK)

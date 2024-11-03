@@ -6,5 +6,6 @@ urlpatterns = [
     path('planes/', views.getPlanes),
     path('planes/capture/', views.capturePlane),
     path('planes/delete/', views.deletePlane),
-    path('planes/<str:pk>/', views.getPlane)
+    path('planes/<str:pk>/', views.getPlane),
+    path('planes/top', views.getScores),
 ]
