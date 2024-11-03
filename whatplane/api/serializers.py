@@ -9,4 +9,4 @@ class PlaneSerializer(ModelSerializer):
 class UserProfileSerializer(ModelSerializer):
     class Meta:
         model = UserProfile
-        fields = ['username', 'score']
+        fields = ['user', 'score']
