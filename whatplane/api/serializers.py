@@ -1,4 +1,5 @@
 from rest_framework.serializers import ModelSerializer
+from rest_framework import serializers
 from .models import Plane, UserProfile
 
 class PlaneSerializer(ModelSerializer):
@@ -7,7 +8,7 @@ class PlaneSerializer(ModelSerializer):
         fields = '__all__'
 
 class UserProfileSerializer(ModelSerializer):
-    username = ModelSerializer.CharField(source='user.username', read_only=True)
+    username = serializers.CharField(source='user.username', read_only=True)
     class Meta:
         model = UserProfile
         fields = ['username', 'score']
