@@ -20,7 +20,7 @@ Authorization: Token 8a8ae2640ad7d5396a7232766edec5c7fb185a83
 
 ###
 
-POST https://shark-app-m2z8h.ondigitalocean.app/api/planes/capture/
+POST http://127.0.0.1:8000/api/planes/capture/
 Content-Type: application/json
 Authorization: Token 42e2779c469a7abb1904b7b39f011b70092196ea
 
@@ -39,8 +39,18 @@ DELETE https://shark-app-m2z8h.ondigitalocean.app/api/planes/delete/
 Content-Type: application/json
 Authorization: Token 42e2779c469a7abb1904b7b39f011b70092196ea
 
-{"id": "2"}
+{"id": "22"}
 
 ###
 
 GET https://api.planespotters.net/pub/photos/reg/G-SUNF
+
+
+###
+
+
+GET https://shark-app-m2z8h.ondigitalocean.app/api/planes/top
+Content-Type: application/json
+Authorization: Token 42e2779c469a7abb1904b7b39f011b70092196ea
+
+{}

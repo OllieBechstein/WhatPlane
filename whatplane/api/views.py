@@ -86,7 +86,7 @@ def capturePlane(request):
     plane_info = adsb_data["ac"][0]
     type = plane_info.get("t")
     reg = plane_info.get("r")
-
+    alt = plane_info.get("alt_baro")
 
     if user_profile.planes.count() >=5:
         return Response({"detail": "You can only own 5 planes."}, status=status.HTTP_400_BAD_REQUEST)
@@ -95,10 +95,25 @@ def capturePlane(request):
         reg = reg,
         type = type
     )
-
+    print("alt was")
+    print(alt)
+    # Assuming `alt` is initially a string, convert it to an integer or float
+ 
+    if alt == 'ground':
+        alt = 10000
+    else:
+        try:
+            alt = int(alt)  # or use float(alt) if alt can be a decimal
+        except ValueError:
+            alt = 0  # Set a default value or handle the error as needed
     if created or plane not in user_profile.planes.all():
         user_profile.planes.add(plane)
-        message = f"Captured the plane: {type} with registration {reg}"
+
+        points = alt//100
+        print(points)
+        user_profile.score += points
+        user_profile.save()
+        message = f"Captured the plane: {type} with registration {reg} and alt {alt}"
         #status_code = status.HTTP_201_CREATED if created else status.HTTP_200_OK
     else:
         message = "Plane already captured."
@@ -123,6 +138,8 @@ def deletePlane(request):
 
 
 @api_view(['GET'])
+@authentication_classes([TokenAuthentication])
+@permission_classes([IsAuthenticated])
 def getScores(request):
     top_users = UserProfile.objects.order_by('-score')[:10]  # Get top 10 users sorted by score
     serializer = UserProfileSerializer(top_users, many=True)
