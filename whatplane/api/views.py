@@ -88,8 +88,8 @@ def capturePlane(request):
     reg = plane_info.get("r")
     alt = plane_info.get("alt_baro")
 
-    if user_profile.planes.count() >=5:
-        return Response({"detail": "You can only own 5 planes."}, status=status.HTTP_400_BAD_REQUEST)
+    if user_profile.planes.count() >=10:
+        return Response({"detail": "You can only own 10 planes."}, status=status.HTTP_400_BAD_REQUEST)
 
     plane, created = Plane.objects.get_or_create(
         reg = reg,
