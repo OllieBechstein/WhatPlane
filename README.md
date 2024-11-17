@@ -2,6 +2,9 @@
 
 WhatPlane is a unique app that allows users to identify and track planes flying overhead. Users can "capture" planes, view details, and build their own collection of aircraft. The app integrates a clean and interactive interface with a powerful backend to deliver an engaging user experience.
 
+![image](https://github.com/user-attachments/assets/424a2717-d20d-4663-ad03-4a2adda7aa5e)
+![image](https://github.com/user-attachments/assets/d566e1fb-a507-4aad-a9a7-4d23552b87fd)
+
 ## Features
 
 ### 🚀 Core Functionality
