@@ -20,7 +20,7 @@ WhatPlane is a unique app that allows users to identify and track planes flying 
   - Storing and managing user profiles and plane ownership.
 
 ### 🔐 Authentication
-- Optional user authentication to personalize the experience:
+- User authentication to personalize the experience:
   - Secure login and token management.
   - User-specific plane collections.
 
