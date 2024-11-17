@@ -31,7 +31,7 @@ WhatPlane is a unique app that allows users to identify and track planes flying 
 
 ### 🌍 Hosted Solution
 - **Frontend:** Flutter app hosted on a DigitalOcean droplet.
-- **Backend:** Django API hosted alongside the PostgreSQL database on the same droplet. Accessible via http://whatplane.uk.
+- **Backend:** Django API hosted alongside the PostgreSQL database on the same droplet. Accessible via https://whatplane.uk.
 
 ## Current Development Focus 🛠️
 - Improving the **plane capture functionality** to include plane locations on the map.
